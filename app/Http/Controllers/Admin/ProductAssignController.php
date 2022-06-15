@@ -54,7 +54,7 @@ class ProductAssignController extends Controller
             ->update([
                 'product_id' => $product,
                 'identification_number'=> $request->identification_no,
-                'policy_number' => $policy_num,
+                'provider_policy_number' => $provider_policy_num,
                 'premium_amount' => $request->premium_amount,
             ]);
         return response()->json(['success' => 'Product is Assigned Successfully']);

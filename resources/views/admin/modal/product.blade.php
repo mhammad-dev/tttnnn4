@@ -40,8 +40,8 @@
             <input name="identification_no" type="text" class="form-control" placeholder="Identification Number" value="{{$row->identification_number}}" required />
           </div>
           <div class="form-group">
-            <label for="policy_number" class="col-form-label">Policy Number:</label>
-            <input name="policy_number" type="text" class="form-control" placeholder="Policy Number" value="{{$row->policy_number}}" />
+            <label for="provider_policy_number" class="col-form-label">Provider Policy Number:</label>
+            <input name="provider_policy_number" type="text" class="form-control" placeholder="Provider Policy Number" value="{{$row->provider_policy_number}}" />
           </div>
           <div class="form-group">
             <label for="premium_amount" class="col-form-label">Premium Amount:</label>
