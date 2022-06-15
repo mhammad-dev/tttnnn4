@@ -1,0 +1,58 @@
+/* Header CSS */
+
+nav.navbar {
+    margin-top: -20px;
+}
+
+h4#header-heading {
+    margin-top: 17px;
+    font-size: 24px;
+    color: #0c1a61;
+    
+}
+
+
+/* Registeratiion Page */
+
+.noble-ui-logo {
+   
+    font-size: 32px !important;
+}
+
+
+.number{
+	font-weight: 100;
+	float: right;
+
+}
+
+#account-details{
+	margin-top: 20px;
+}
+
+#account-details h4{
+	font-size: 1.2rem;
+}
+
+#referral_link_div{
+	margin-top: 50px;
+}
+
+
+#row-refferal{
+	padding-bottom: 100px;
+}
+
+input#referral_link {
+    height: 50px;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+button#refferal_btn{
+	font-size: 18px;
+	height: 40px;
+}
+
+
+
