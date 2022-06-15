@@ -53,7 +53,9 @@ class ProductAssignController extends Controller
             ->where('ibm' , '=' , $ibm)
             ->update([
                 'product_id' => $product,
-                'policy_number' => $policy_num
+                'identification_number'=> $request->identification_no,
+                'policy_number' => $policy_num,
+                'premium_amount' => $request->premium_amount,
             ]);
         return response()->json(['success' => 'Product is Assigned Successfully']);
     }
@@ -62,6 +64,7 @@ class ProductAssignController extends Controller
     {
         $validator = Validator::make($data, [
             'product' => 'required | not_in:0',
+            'identification_no' => 'required'
         
         ]);
 

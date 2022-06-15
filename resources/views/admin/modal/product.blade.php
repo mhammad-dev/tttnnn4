@@ -21,7 +21,7 @@
 
           <input type="text" name="hiddenibm" value="{{$row->ibm}}" hidden>
           <div class="form-group">
-            <label for="product" class="col-form-label">Product Name:</label>
+            <label for="product" class="col-form-label">Product Name:<span class="aesterik">*</span></label>
             <select name="product" class="form-control" required>
               @if($row->product_id == NULL)
                <option value="" disabled selected >Select Product</option>
@@ -34,6 +34,18 @@
                 @endif
               @endforeach
             </select>
+          </div>
+          <div class="form-group">
+            <label for="identification_no" class="col-form-label">Identification Number: <span class="aesterik">*</span></label>
+            <input name="identification_no" type="text" class="form-control" placeholder="Identification Number" value="{{$row->identification_number}}" required />
+          </div>
+          <div class="form-group">
+            <label for="policy_number" class="col-form-label">Policy Number:</label>
+            <input name="policy_number" type="text" class="form-control" placeholder="Policy Number" value="{{$row->policy_number}}" />
+          </div>
+          <div class="form-group">
+            <label for="premium_amount" class="col-form-label">Premium Amount:</label>
+            <input name="premium_amount" type="text" class="form-control" placeholder="Premium Amount" value="{{$row->premium_amount}}" required />
           </div>
           
         </form>

@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->string('bank_name')->nullable();
             $table->string('iban_number')->nullable();
             $table->string('policy_number')->nullable();
+            $table->string('identification_number')->nullable();
+            $table->string('premium_amount')->nullable();
             $table->string('refer_ibm')->nullable();
             $table->string('passed_up_to')->nullable();
             $table->boolean('is_root')->default('0');
