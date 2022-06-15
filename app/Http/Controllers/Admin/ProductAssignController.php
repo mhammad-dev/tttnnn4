@@ -41,7 +41,7 @@ class ProductAssignController extends Controller
         if($validator->fails())
         {
         
-            return response()->json(['error' => 'Kindly Select the product.']);
+            return response()->json(['error' => 'Required feilds cannot be empty']);
         }
 
         $policy_num= Product::where('product_id' ,'!=' ,'NULL')->count();
@@ -53,8 +53,9 @@ class ProductAssignController extends Controller
             ->where('ibm' , '=' , $ibm)
             ->update([
                 'product_id' => $product,
+                'policy_number' => $policy_num,
                 'identification_number'=> $request->identification_no,
-                'provider_policy_number' => $provider_policy_num,
+                'provider_policy_number' => $request->provider_policy_num,
                 'premium_amount' => $request->premium_amount,
             ]);
         return response()->json(['success' => 'Product is Assigned Successfully']);
