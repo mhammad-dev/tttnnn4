@@ -151,6 +151,15 @@ Route::group(['namespace' => 'User\Auth'], function () {
 
 });
 
+//CareCover User Reward
+Route::get('rewards' , 'User\RewardController@index')->name('user.rewards');
+
+
+// User Transactions
+
+Route::get('transactions' , 'User\TransactionController@index')->name('user.transactions');
+
+
 
 /* ADMIN ROUTES */
 
@@ -169,14 +178,39 @@ Route::group(['namespace' => 'Admin\Auth'], function () {
 
 
 
-
+//Admin Main
 
 Route::get('admin/home', 'Admin\AdminController@index')->name('admin_home');
+
+//Admin Members
+
 Route::get('admin/mymembers', 'Admin\MyMemberController@index')->name('admin_mymembers');
 Route::post('admin/productassign', 'Admin\ProductAssignController@store')->name('admin_productassign');
 
+//Admin Transactions
+Route::get('admin/import_transactions', 'Admin\ImportController@index')->name('admin_import_transactions');
+
+
+//Admin Password
 Route::get('admin/changepassword', 'Admin\ChangePasswordController@index')->name('admin_changepassword_page');
 Route::post('admin/changepassword', 'Admin\ChangePasswordController@changePassword')->name('admin_change_password');
+
+
+
+//IMPORT TEST
+
+
+Route::get('admin/transactions', 'Admin\TransactionController@index')->name('transactions.index');
+
+Route::get('admin/transaction/confirmation', 'Admin\TempTransactionController@index')->name('admin.transactions.confirmation');
+
+Route::post('admin/transaction/confirm', 'Admin\TempTransactionController@confirm')->name('admin.transactions.confirm');
+
+Route::post('admin/transaction/rollback', 'Admin\TempTransactionController@rollback')->name('admin.transactions.rollback');
+
+Route::post('admin/import_parse', [\App\Http\Controllers\ImportController::class, 'parseImport'])->name('import_parse');
+
+Route::post('admin/import_process', [\App\Http\Controllers\ImportController::class, 'processImport'])->name('import_process');
 
 
 

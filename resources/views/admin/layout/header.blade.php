@@ -201,8 +201,8 @@
               <img src="{{ url('https://via.placeholder.com/80x80') }}" alt="">
             </div>
             <div class="info text-center">
-              <p class="name font-weight-bold mb-0">{{Auth::user()->name}}</p>
-              <p class="email text-muted mb-3">{{Auth::user()->email}}</p>
+            {{--   <p class="name font-weight-bold mb-0">{{Auth::user()->name}}</p>
+              <p class="email text-muted mb-3">{{Auth::user()->email}}</p> --}}
             </div>
           </div>
           <div class="dropdown-body">

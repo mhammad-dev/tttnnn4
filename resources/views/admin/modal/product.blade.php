@@ -36,6 +36,23 @@
             </select>
           </div>
           <div class="form-group">
+            <label for="member_intention" class="col-form-label">Member Intentions:<span class="aesterik">*</span></label>
+            <select name="member_intention" class="form-control" required>
+              @if($row->member_intention == NULL)
+               <option value="" disabled selected >Select Member Intention</option>
+               <option value="1">Buy product & advertise</option>
+               <option value="2">Only advertise</option>
+              @elseif($row->member_intention == '1')
+               <option value="1" selected>Buy product & advertise</option>
+               <option value="2">Only advertise</option>
+              @elseif($row->member_intention =='2')
+                <option value="1">Buy product & advertise</option>
+               <option value="2" selected>Only advertise</option>
+              @endif
+    
+            </select>
+          </div>
+          <div class="form-group">
             <label for="identification_no" class="col-form-label">Identification Number: <span class="aesterik">*</span></label>
             <input name="identification_no" type="text" class="form-control" placeholder="Identification Number" value="{{$row->identification_number}}" required />
           </div>

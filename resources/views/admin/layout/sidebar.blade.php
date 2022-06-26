@@ -45,6 +45,13 @@
           <span class="link-title">My Members</span>
         </a>
       </li>
+      <li class="nav-item nav-category">Transactions</li>
+      <li class="nav-item {{ active_class(['admin/transactions']) }}">
+        <a href="{{ url('/admin/transactions') }}" class="nav-link">
+          <i class="link-icon" data-feather="message-square"></i>
+          <span class="link-title">Trasactions</span>
+        </a>
+      </li>
       {{-- <li class="nav-item {{ active_class(['apps/calendar']) }}">
         <a href="{{ url('/apps/calendar') }}" class="nav-link">
           <i class="link-icon" data-feather="calendar"></i>

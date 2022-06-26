@@ -44,9 +44,11 @@
                 @endif
                 <td>{{$row->passed_up_to}}</td>
                 <td><a href="#productassign{{$row->ibm}}" data-toggle="modal"><i class="link-icon" data-feather="edit"></i></a>&nbsp; &nbsp;
-                 <a href="#user_direct_invitation{{$row->ibm}}" data-toggle="modal" onclick="user_dn_dt('{{$row->ibm}}')"><i class="link-icon" data-feather="users"></i></a>
+                 <a href="#user_direct_invitation{{$row->ibm}}" data-toggle="modal" onclick="user_dn_dt('{{$row->ibm}}')"><i class="link-icon" data-feather="users"></i></a>&nbsp; &nbsp;
+                 <a href="#member_transactions{{$row->ibm}}" data-toggle="modal" onclick="user_mem_trans('{{$row->ibm}}')"><i class="link-icon" data-feather="credit-card"></i></a>
                   @include('admin.modal.product')
-                @include('admin.modal.user_direct_invitation')
+                  @include('admin.modal.user_direct_invitation')
+                  @include('admin.modal.member_transactions')
                </td>
 
               </tr> 
@@ -99,6 +101,10 @@
     // $(document).ready( function () {
      $('#user_direct_invitation_table'+ibm).DataTable();
     // });
+  }
+
+  function user_mem_trans(ibm){
+    $('#user_member_transactions_table'+ibm).DataTable();
   }
  
  

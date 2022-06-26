@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User\User;
+use App\Models\Transaction;
 use App\Models\Product;
 use Auth;
 use DB;
@@ -33,9 +34,9 @@ class MyMemberController extends Controller
                     ->select('*')->get();
         //dd($data);
         $users= User::all();
-
         $products=Product::all();
-        return view('admin.mymembers' , compact('data' , 'products','users'));
+        $transactions = Transaction::all();
+        return view('admin.mymembers' , compact('data' , 'products','users' , 'transactions'));
     }
 
     

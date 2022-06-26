@@ -53,6 +53,7 @@ class ProductAssignController extends Controller
             ->where('ibm' , '=' , $ibm)
             ->update([
                 'product_id' => $product,
+                'member_intention' => $request->member_intention,
                 'policy_number' => $policy_num,
                 'identification_number'=> $request->identification_no,
                 'provider_policy_number' => $request->provider_policy_num,
@@ -65,7 +66,8 @@ class ProductAssignController extends Controller
     {
         $validator = Validator::make($data, [
             'product' => 'required | not_in:0',
-            'identification_no' => 'required'
+            'identification_no' => 'required',
+            'member_intention' => 'required | not_in:0'
         
         ]);
 
