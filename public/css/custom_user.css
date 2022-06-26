@@ -87,3 +87,25 @@ span.info-box-num{
 span.table-data-extra{
     font-size: 9px !important;
 }
+
+
+
+/*/*CareCover Rewards*/
+
+.rewards-card-header{
+    text-align: center;
+    font-size: 24px;
+}
+
+.rewards-title-btn{
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.rewards-title-btn:hover{
+    text-decoration: none;
+}
+
+#accordion.class{
+    margin-top: 5px;
+}
