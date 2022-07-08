@@ -18,13 +18,13 @@ class CreateUsersSeeder extends Seeder
             [
                'name'=>'Admin',
                'email'=>'admin@mlm.com',
-                'is_admin'=>'1',
+                'is_root'=>'1',
                'password'=> bcrypt('123456'),
             ],
             [
                'name'=>'User',
                'email'=>'user@mlm.com',
-                'is_admin'=>'0',
+                'is_root'=>'0',
                'password'=> bcrypt('123456'),
             ],
         ];

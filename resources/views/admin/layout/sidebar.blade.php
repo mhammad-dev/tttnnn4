@@ -52,6 +52,32 @@
           <span class="link-title">Trasactions</span>
         </a>
       </li>
+      <li class="nav-item nav-category">Reconcillation</li>
+      <li class="nav-item {{ active_class(['admin/reconcile']) }}">
+        <a href="{{ url('/admin/reconcile') }}" class="nav-link">
+          <i class="link-icon" data-feather="message-square"></i>
+          <span class="link-title">Reconcile Users</span>
+        </a>
+      </li>
+
+      
+      @canany(['role-list', 'role-create', 'role-edit', 'role-delete'])
+       <li class="nav-item nav-category">User Management</li>
+      <li class="nav-item {{ active_class(['admin/roles']) }}">
+        <a href="{{ url('/admin/roles') }}" class="nav-link">
+          <i class="link-icon" data-feather="lock"></i>
+          <span class="link-title">Roles</span>
+        </a>
+      </li>
+      @endcanany
+      @role('SuperAdmin')
+      <li class="nav-item {{ active_class(['admin/users']) }}">
+        <a href="{{ url('/admin/users') }}" class="nav-link">
+          <i class="link-icon" data-feather="users"></i>
+          <span class="link-title">Users</span>
+        </a>
+      </li>
+      @endrole
       {{-- <li class="nav-item {{ active_class(['apps/calendar']) }}">
         <a href="{{ url('/apps/calendar') }}" class="nav-link">
           <i class="link-icon" data-feather="calendar"></i>

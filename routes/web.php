@@ -212,6 +212,19 @@ Route::post('admin/import_parse', [\App\Http\Controllers\ImportController::class
 
 Route::post('admin/import_process', [\App\Http\Controllers\ImportController::class, 'processImport'])->name('import_process');
 
+//Reconcillation
+Route::get('admin/reconcile' , [\App\Http\Controllers\Admin\ReconcillationController::class , 'index']);
+
+Route::post('admin/reconcile' , [\App\Http\Controllers\Admin\ReconcillationController::class , 'preReconcillation'])->name('reconcile');
+
+
+//User Management
+
+Route::group(['middleware' => ['auth:admin']], function() {
+    Route::resource('admin/roles', Admin\RoleController::class);
+    Route::resource('admin/users', Admin\UserController::class);
+});
+
 
 
 

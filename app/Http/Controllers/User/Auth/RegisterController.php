@@ -55,13 +55,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'refer_ibm'  => ['required', 'string', 'max:255' , 'exists:App\Models\User\User,refer_ibm'    ],
+            'refer_ibm'  => ['required', 'string', 'max:255' , 'exists:App\Models\User\User,refer_ibm'],
             'name' => ['required', 'string', 'max:255'],
             'surname'=>['required' , 'string' , 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'whatsapp_number' => ['required', 'numeric','digits_between:10,15','unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            // 'g-recaptcha-response' => 'required|captcha',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
     }
 

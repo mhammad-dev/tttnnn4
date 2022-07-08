@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User\User;
 use Auth;
+use App\Models\SubscribedUser;
 
 class RewardController extends Controller
 {
@@ -26,7 +27,11 @@ class RewardController extends Controller
      */
     public function index()
     {
-        return view('user.rewards');
+        $ibm = Auth::user()->ibm;
+        $level = SubscribedUser::where('parent' , '=' ,$ibm)->max('level');
+        $data = SubscribedUser::where('parent' , '=' , $ibm)->get();
+        //dd($data);
+        return view('user.rewards' , compact('data' , 'level'));
     }
 
     

@@ -1,4 +1,7 @@
 @extends('user.layout.master')
+@push('plugin-styles')
+  <link href="{{ asset('assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet" />
+@endpush
 @section('content')
 
 <nav class="page-breadcrumb">
@@ -11,138 +14,64 @@
 <div class="row">
 	<div class="col-md-12">
     <div id="accordion" class="mt-4">
-  <div class="card">
-    <div class="card-header rewards-card-header" id="headingOne">
-      <h5 class="mb-0">
-        <button class="btn btn-link rewards-title-btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-         Level 1
-        </button>
-      </h5>
-    </div>
-
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
-       <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+      @for($i=1 ; $i<=$level ; $i++)
+       <div class="card">
+          <div class="card-header rewards-card-header" id="heading{{$i}}">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed rewards-title-btn" data-toggle="collapse" data-target="#collapse{{$i}}" aria-expanded="false" aria-controls="collapse{{$i}}">
+                Level {{$i}}
+              </button>
+            </h5>
+          </div>
+          <div id="collapse{{$i}}" class="collapse" aria-labelledby="heading{{$i}}" data-parent="#accordion">
+            <div class="card-body">
+              <table class="table" id="level{{$i}}">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Parent</th>
+                    <th>Child</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @php
+                    $index = 1
+                  @endphp
+                  @foreach($data as $key => $row)
+                  @if($i == $row->level)
+                  <tr>
+                    <th>{{$index++}}</th>
+                    <td>{{$row->parent}}</td>
+                    <td>{{$row->child}}</td>
+                  </tr>
+                  @endif
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </div>
       </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header rewards-card-header" id="headingTwo">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed rewards-title-btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Level 2
-        </button>
-      </h5>
-    </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-      <div class="card-body">
-        <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header rewards-card-header" id="headingThree">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed rewards-title-btn" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Level 3
-        </button>
-      </h5>
-    </div>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-      <div class="card-body">
-       <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-      </div>
-    </div>
-  </div>
+    @endfor
 </div>
 	</div>
 </div>
 
 @endsection
+
+@push('plugin-scripts')
+  <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
+  <script src="{{ asset('assets/plugins/datatables-net-bs4/dataTables.bootstrap4.js') }}"></script>
+@endpush
+
+@push('custom-scripts')
+<script src="{{ asset('assets/js/data-table.js') }}"></script>
+<script type="text/javascript">
+   $(document).ready( function () {
+    var levels = {{$level}};
+    for(var i=1 ; i<= levels ; i++){
+      $('#level'+i).DataTable();
+    }
+     
+    });
+</script>
+@endpush

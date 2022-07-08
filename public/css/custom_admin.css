@@ -31,3 +31,15 @@ h4#header-heading {
     font-size: 16px;
     padding: 10px;
 }
+
+div#level1_filter {
+    margin-left: 300px;
+}
+
+div#level2_filter {
+    margin-left: 300px;
+}
+
+div#level3_filter {
+    margin-left: 300px;
+}
