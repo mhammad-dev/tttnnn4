@@ -1,4 +1,4 @@
-@extends('user.layout.master')
+@extends('admin.layout.master')
 
 @push('plugin-styles')
   <link href="{{ asset('assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet" />

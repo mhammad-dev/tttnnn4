@@ -186,6 +186,8 @@ Route::get('admin/home', 'Admin\AdminController@index')->name('admin_home');
 
 Route::get('admin/mymembers', 'Admin\MyMemberController@index')->name('admin_mymembers');
 Route::post('admin/productassign', 'Admin\ProductAssignController@store')->name('admin_productassign');
+Route::get('admin/member/rewards/{ibm}', 'Admin\RewardController@index')->name('admin_members_reward');
+
 
 //Admin Transactions
 Route::get('admin/import_transactions', 'Admin\ImportController@index')->name('admin_import_transactions');
@@ -224,6 +226,12 @@ Route::group(['middleware' => ['auth:admin']], function() {
     Route::resource('admin/roles', Admin\RoleController::class);
     Route::resource('admin/users', Admin\UserController::class);
 });
+
+
+
+//Dummy transaction
+ROute::get('admin/addTransaction' , 'Admin\TransactionController@addTrans');
+ROute::post('admin/addTransaction' , 'Admin\TransactionController@store')->name('admin_add_trans');
 
 
 

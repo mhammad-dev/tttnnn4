@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ class RewardController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -26,10 +26,11 @@ class RewardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-     
-        $ibm = Auth::user()->ibm;
+        //dd($request->ibm);
+       // dd(Auth::user('admin'));
+        $ibm = $request->ibm;
         $level = SubscribedUser::where('parent' , '=' ,$ibm)->max('level');
        // $data = SubscribedUser::where('parent' , '=' , $ibm)->get();
         $data = DB::table('users')
@@ -40,7 +41,7 @@ class RewardController extends Controller
         
        // $user = $user[0];
         //dd($data);
-        return view('user.rewards' , compact('data' , 'level'));
+        return view('admin.member_rewards' , compact('data' , 'level'));
     }
 
 

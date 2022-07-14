@@ -52,6 +52,12 @@
           <span class="link-title">Trasactions</span>
         </a>
       </li>
+      <li class="nav-item {{ active_class(['admin/addTransaction']) }}">
+        <a href="{{ url('/admin/addTransaction') }}" class="nav-link">
+          <i class="link-icon" data-feather="message-square"></i>
+          <span class="link-title">Add Trasactions</span>
+        </a>
+      </li>
       <li class="nav-item nav-category">Reconcillation</li>
       <li class="nav-item {{ active_class(['admin/reconcile']) }}">
         <a href="{{ url('/admin/reconcile') }}" class="nav-link">

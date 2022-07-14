@@ -17,7 +17,7 @@ class ReconcillationController extends Controller
     public function getUsers(){
         $user = User::all();
         return $user;
-    }
+    }   
 
     public function getListNumber(User $user){
         // if($user->is_root == 1 ){
