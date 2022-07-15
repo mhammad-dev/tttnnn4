@@ -53,8 +53,8 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="identification_no" class="col-form-label">Identification Number: <span class="aesterik">*</span></label>
-            <input name="identification_no" type="text" class="form-control" placeholder="Identification Number" value="{{$row->identification_number}}" required />
+            <label for="identification_number" class="col-form-label">Identification Number: <span class="aesterik">*</span></label>
+            <input name="identification_number" type="text" class="form-control" placeholder="Identification Number" value="{{$row->identification_number}}" required />
           </div>
           <div class="form-group">
             <label for="provider_policy_number" class="col-form-label">Provider Policy Number:</label>

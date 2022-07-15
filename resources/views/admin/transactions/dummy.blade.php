@@ -17,7 +17,7 @@
                             <select class="js-example-basic-single w-100" id="users-select" name="user_ibm" required>
                                 <option value="" selected disabled>Select User</option>
                                 @foreach($users as $user)
-                                    <option value="{{$user->ibm}}">{{$user->identification_number}}</option>
+                                    <option value="{{$user->ibm}}">{{$user->identification_number}}-{{$user->ibm}}</option>
                                 @endforeach
                             </select>
                           </div>

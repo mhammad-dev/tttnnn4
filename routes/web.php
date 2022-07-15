@@ -159,6 +159,10 @@ Route::get('rewards' , 'User\RewardController@index')->name('user.rewards');
 
 Route::get('transactions' , 'User\TransactionController@index')->name('user.transactions');
 
+// User Commissions
+
+Route::get('commissions' , 'User\CommissionController@index')->name('user.commissions');
+
 
 
 /* ADMIN ROUTES */
@@ -217,7 +221,7 @@ Route::post('admin/import_process', [\App\Http\Controllers\ImportController::cla
 //Reconcillation
 Route::get('admin/reconcile' , [\App\Http\Controllers\Admin\ReconcillationController::class , 'index']);
 
-Route::post('admin/reconcile' , [\App\Http\Controllers\Admin\ReconcillationController::class , 'preReconcillation'])->name('reconcile');
+Route::post('admin/reconcile' , [\App\Http\Controllers\Admin\ReconcillationController::class , 'reconcillation'])->name('reconcile');
 
 
 //User Management

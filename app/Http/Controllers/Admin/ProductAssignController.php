@@ -36,6 +36,7 @@ class ProductAssignController extends Controller
     public function store(Request $request){
 
          $requestData = $request->All();
+         //dd($requestData);
          $validator = $this->validateProduct($requestData);
 
         if($validator->fails())
@@ -66,7 +67,7 @@ class ProductAssignController extends Controller
     {
         $validator = Validator::make($data, [
             'product' => 'required | not_in:0',
-            'identification_no' => 'required',
+            'identification_number' => 'required',
             'member_intention' => 'required | not_in:0'
         
         ]);
