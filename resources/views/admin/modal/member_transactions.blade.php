@@ -12,13 +12,12 @@
           <table id="user_member_transactions_table{{$row->ibm}}" class="table table-hover text-center">
              <thead>
               <tr>
-                  <th>Identification</th>
-                  <th>Description</th>
+                  <th>Transaction Date</th>
+                  <th>Transaction ID</th>
+                  <th>Product Type</th>
+                  <th>Policy Number</th>
+                  <th>Premium</th>
                   <th>Status</th>
-                   <th>
-                    Risk amt 
-                    <span class="table-data-extra">(ex vat)</span>
-                  </th>
               </tr>
                             
                           
@@ -27,11 +26,13 @@
                @foreach($transactions as $transaction)
                @if($transaction->member_id == $row->id)
               <tr>
-                 <td>{{$transaction->identification_no}}</td>
-                 <td>{{$transaction->description}}</td>
-                 <td>{{$transaction->status}}</td>
-                 <td>{{$transaction->risk_amt_ex_vat}}</td>
-              </tr>
+               <td>{{date('d F Y', strtotime($transaction->created_at))}}</td>
+               <td>{{substr(str_repeat(0, 7).$transaction->id, - 7)}}</td>
+               <td>{{$transaction->product_name}}</td>
+               <td>{{$transaction->policy_no}}</td>
+               <td>{{$transaction->risk_amt_ex_vat}}</td>
+               <td>{{$transaction->status}}</td>  
+              </tr> 
               @endif
               @endforeach
             </tbody>

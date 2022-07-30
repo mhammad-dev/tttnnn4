@@ -71,9 +71,9 @@
                     
                 </div>
                 <div class="form-group">
-                   <label for="whatsapp_number">{{ __('Mobile\Whatsapp Number') }}</label>
+                   <label for="whatsapp_number">{{ __('Mobile/Whatsapp Number') }}</label>
 
-                        <input id="whatsapp_number" type="number" minlength="10" class="form-control @error('whatsapp_number') is-invalid @enderror" name="whatsapp_number" value="{{ old('whatsapp_number') }}" required autocomplete="whatsapp_number">
+                        <input id="whatsapp_number" type="text" class="form-control @error('whatsapp_number') is-invalid @enderror" name="whatsapp_number" value="{{ old('whatsapp_number') }}" required autocomplete="whatsapp_number"  minlength="10" maxlength="10" size="10" onkeypress="return onlyNumberKey(event)">
 
                         @error('whatsapp_number')
                             <span class="invalid-feedback" role="alert">
@@ -139,6 +139,21 @@
 
 </div>
 @endsection
+
+@push('custom-scripts')
+
+<script>
+    function onlyNumberKey(evt) {
+          
+        // Only ASCII character in that range allowed
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+            return false;
+        return true;
+    }
+</script>
+
+@endpush
 
 
 {{-- @extends('user.layout.master2')

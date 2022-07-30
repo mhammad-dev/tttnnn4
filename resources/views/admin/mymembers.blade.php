@@ -46,10 +46,12 @@
                 <td><a href="#productassign{{$row->ibm}}" data-toggle="modal"><i class="link-icon" data-feather="edit"></i></a>&nbsp; &nbsp;
                  <a href="#user_direct_invitation{{$row->ibm}}" data-toggle="modal" onclick="user_dn_dt('{{$row->ibm}}')"><i class="link-icon" data-feather="users"></i></a>&nbsp; &nbsp;
                  <a href="#member_transactions{{$row->ibm}}" data-toggle="modal" onclick="user_mem_trans('{{$row->ibm}}')"><i class="link-icon" data-feather="credit-card"></i></a>&nbsp;&nbsp;
-                 <a href="/admin/member/rewards/{{$row->ibm}}" target="_blank"><i class="link-icon" data-feather="gift"></i></a>
+                 <a href="#member_commissions{{$row->ibm}}" data-toggle="modal" onclick="user_mem_coms('{{$row->ibm}}')"><i class="link-icon" data-feather="dollar-sign"></i></a>&nbsp;&nbsp;
+                 <a href="/admin/member/rewards/{{$row->ibm}}/{{$row->name}}" target="_blank"><i class="link-icon" data-feather="gift"></i></a>
                   @include('admin.modal.product')
                   @include('admin.modal.user_direct_invitation')
                   @include('admin.modal.member_transactions')
+                  @include('admin.modal.commission')
                </td>
 
               </tr> 
@@ -106,6 +108,16 @@
 
   function user_mem_trans(ibm){
     $('#user_member_transactions_table'+ibm).DataTable();
+  }
+
+  function user_mem_coms(ibm){
+    $('#user_member_commissions_table'+ibm).DataTable();
+  }
+
+  function showDiv(id1, id2,element)
+  {
+    document.getElementById(id1).style.display = element.value == 1 ? 'block' : 'none';
+    document.getElementById(id2).style.display = element.value == 1 ? 'block' : 'none';
   }
  
  

@@ -59,9 +59,9 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'surname'=>['required' , 'string' , 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'whatsapp_number' => ['required', 'numeric','digits_between:10,15','unique:users'],
+            'whatsapp_number' => ['required', 'numeric','digits:10' ,'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'g-recaptcha-response' => 'required|captcha',
+            // 'g-recaptcha-response' => 'required|captcha',
         ]);
     }
 

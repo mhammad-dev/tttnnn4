@@ -158,10 +158,15 @@ Route::get('rewards' , 'User\RewardController@index')->name('user.rewards');
 // User Transactions
 
 Route::get('transactions' , 'User\TransactionController@index')->name('user.transactions');
+Route::post('searchTransactions' , 'User\TransactionController@searchTransaction')->name('user.transactions.search');
 
 // User Commissions
 
 Route::get('commissions' , 'User\CommissionController@index')->name('user.commissions');
+Route::post('searchCommissions' , 'User\CommissionController@searchCommission')->name('user.commissions.search');
+Route::get('downloadCommissions' , 'User\CommissionController@downloadCommission')->name('user.commissions.download');
+
+Route::get('downloadView' , 'User\CommissionController@downloadView');
 
 
 
@@ -190,7 +195,7 @@ Route::get('admin/home', 'Admin\AdminController@index')->name('admin_home');
 
 Route::get('admin/mymembers', 'Admin\MyMemberController@index')->name('admin_mymembers');
 Route::post('admin/productassign', 'Admin\ProductAssignController@store')->name('admin_productassign');
-Route::get('admin/member/rewards/{ibm}', 'Admin\RewardController@index')->name('admin_members_reward');
+Route::get('admin/member/rewards/{ibm}/{name}', 'Admin\RewardController@index')->name('admin_members_reward');
 
 
 //Admin Transactions

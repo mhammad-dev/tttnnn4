@@ -56,7 +56,7 @@ class ProductAssignController extends Controller
                 'product_id' => $product,
                 'member_intention' => $request->member_intention,
                 'policy_number' => $policy_num,
-                'identification_number'=> $request->identification_no,
+                'identification_number'=> $request->identification_number,
                 'provider_policy_number' => $request->provider_policy_num,
                 'premium_amount' => $request->premium_amount,
             ]);
@@ -65,12 +65,21 @@ class ProductAssignController extends Controller
 
     public function validateProduct(array $data)
     {
-        $validator = Validator::make($data, [
+        if($data['member_intention']==2){
+            $validator = Validator::make($data, [
+            'member_intention' => 'required | not_in:0'
+        
+            ]);
+        }
+        else{
+            $validator = Validator::make($data, [
             'product' => 'required | not_in:0',
             'identification_number' => 'required',
             'member_intention' => 'required | not_in:0'
         
-        ]);
+            ]);
+        }
+        
 
         return $validator;
     }

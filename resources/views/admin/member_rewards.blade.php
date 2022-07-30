@@ -11,22 +11,26 @@
     <li class="breadcrumb-item active" aria-current="page">CareCover Rewards</li>
   </ol>
 </nav>
-
+<div class="row mt-4" style="width:200px">
+  <div class="col-md-12">
+    <h4 class="text-capitalize bg-primary text-white text-center py-1">{{ request()->route('name') }}</h4>
+  </div>
+</div>
 <div class="row">
 	<div class="col-md-12">
     <div id="accordion" class="mt-4">
-      @for($i=1 ; $i<=$level ; $i++)
+      @foreach($total_comm as $level)
        <div class="card">
-          <div class="card-header rewards-card-header" id="heading{{$i}}">
+          <div class="card-header rewards-card-header" id="heading{{$level->level}}">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed rewards-title-btn" data-toggle="collapse" data-target="#collapse{{$i}}" aria-expanded="false" aria-controls="collapse{{$i}}">
-                Level {{$i}}
+              <button class="btn btn-link collapsed rewards-title-btn" data-toggle="collapse" data-target="#collapse{{$level->level}}" aria-expanded="false" aria-controls="collapse{{$level->level}}">
+                Level {{$level->level}} - {{$level->commission}} r
               </button>
             </h5>
           </div>
-          <div id="collapse{{$i}}" class="collapse" aria-labelledby="heading{{$i}}" data-parent="#accordion">
+          <div id="collapse{{$level->level}}" class="collapse" aria-labelledby="heading{{$level->level}}" data-parent="#accordion">
             <div class="card-body">
-              <table class="table" id="level{{$i}}">
+              <table class="table" id="level{{$level->level}}">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -35,7 +39,7 @@
                     <th>Email Address</th>
                     <th>Direct Referral Sponsor</th>
                     <th>Product Type</th>
-                    <th>Amount</th>
+                    <th>Commission</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -43,7 +47,7 @@
                     $index = 1
                   @endphp
                   @foreach($data as $key => $row)
-                  @if($i == $row->level)
+                  @if($level->level == $row->level)
                   <tr>
                     <td>{{$index++}}</td>
                     <td>{{$row->ibm}}</td>
@@ -51,7 +55,7 @@
                     <td>{{$row->email}}</td>
                     <td>{{$row->refer_ibm}}</td>
                     <td>{{$row->product_name}}</td>
-                    <td>{{$row->premium_amount}}</td>
+                    <td>{{$row->commission_paid}}</td>
                   </tr>
                   @endif
                   @endforeach
@@ -60,7 +64,7 @@
             </div>
           </div>
       </div>
-    @endfor
+    @endforeach
 </div>
 	</div>
 </div>

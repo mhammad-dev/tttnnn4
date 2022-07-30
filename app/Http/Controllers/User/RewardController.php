@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\User\User;
 use Auth;
 use App\Models\SubscribedUser;
+use App\Models\Commission;
 use DB;
+use Carbon\Carbon;
 
 class RewardController extends Controller
 {
@@ -28,19 +30,23 @@ class RewardController extends Controller
      */
     public function index()
     {
-     
+        $toDate = Carbon::today();
+        $toDate = $toDate->toDateString();
+        $fromDate =Carbon::today()->subDays(30);
+        $fromDate = $fromDate->toDateString();
+
         $ibm = Auth::user()->ibm;
         $level = SubscribedUser::where('parent' , '=' ,$ibm)->max('level');
-       // $data = SubscribedUser::where('parent' , '=' , $ibm)->get();
+        $total_comm = Commission::select('level', DB::raw('sum(commission_paid) as commission'))->where('sponsor' , '=' , $ibm)->whereBetween('commissions.created_at' , [$fromDate." 00:00:00" , $toDate." 23:59:59"])->groupBy('level')->get();
+     
         $data = DB::table('users')
                 ->leftjoin('products' , 'users.product_id' , '=' ,'products.product_id')
                 ->rightjoin('subscribed_users' , 'users.ibm' , '=' , 'subscribed_users.child')
-                ->where('subscribed_users.parent','=' ,$ibm)->get();
-        
-        
-       // $user = $user[0];
-        //dd($data);
-        return view('user.rewards' , compact('data' , 'level'));
+                ->rightjoin('commissions' , 'users.ibm' , '=' ,'commissions.referral')
+                ->where('subscribed_users.parent','=' ,$ibm)
+                ->whereBetween('commissions.created_at' , [$fromDate." 00:00:00" , $toDate." 23:59:59"])->get();
+
+        return view('user.rewards' , compact('data' , 'level' , 'total_comm'));
     }
 
 

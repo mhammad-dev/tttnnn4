@@ -49,7 +49,7 @@
       <li class="nav-item {{ active_class(['admin/transactions']) }}">
         <a href="{{ url('/admin/transactions') }}" class="nav-link">
           <i class="link-icon" data-feather="message-square"></i>
-          <span class="link-title">Trasactions</span>
+          <span class="link-title">Import Trasactions</span>
         </a>
       </li>
       <li class="nav-item {{ active_class(['admin/addTransaction']) }}">

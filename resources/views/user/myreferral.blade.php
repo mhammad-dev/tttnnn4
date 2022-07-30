@@ -24,7 +24,7 @@
                 <th>Level</th>
                 <th>IBM</th>
                 <th>Names</th>
-                <th>Email</th>
+                {{-- <th>Email</th> --}}
                 <th>Action</th>
               </tr>
             </thead>
@@ -34,7 +34,7 @@
                 <td>{{$row->level}}</td>
                 <td>{{$row->ibm}}</td>
                 <td>{{$row->name}}</td>
-                <td>{{$row->email}}</td>
+                {{-- <td>{{$row->email}}</td> --}}
                 <td><a href="#"><i class="link-icon" data-feather="mail"></i></a></td>
               </tr> 
               @endforeach
