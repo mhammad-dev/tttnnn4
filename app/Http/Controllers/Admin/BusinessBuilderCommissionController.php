@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use App\Models\Commission;
-use App\Models\User\User;
+use App\Models\Admin\Admin;
 use Carbon\Carbon;
 use Auth;
 use PDF;
@@ -13,22 +13,21 @@ use App;
 use DB;
 use DateTime;
 
-class CommissionController extends Controller
+class BusinessBuilderCommissionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
 
     public function index()
     {
-        return view('user.commissions.index');
+        return view('admin.commissions.businessbuilder-commissions');
     }
 
     public function searchCommission(Request $request){
         if($request->ajax()){
-            //dd(!empty($request->fromdate));
             if(!empty($request->fromdate) && empty($request->todate)){
                 $toDate = Carbon::today();
                 $toDate = $toDate->toDateString();
@@ -55,13 +54,13 @@ class CommissionController extends Controller
             $output = '';
             $risk_amt_sum=0;
             $total_comm = 0;
-            $ibm = Auth::user()->ibm;
             $id = Auth::user()->id;
-            $data = Commission::where('sponsor' , '=' , $ibm)
-                    ->whereBetween('created_at' , [$fromDate." 00:00:00" , $toDate." 23:59:59"])->get();
-            // dd($data);
+            $data = DB::table('commissions')
+                    ->leftjoin('user_products' , 'user_products.user_ibm', '=' ,'commissions.referral')
+                    ->where('user_products.business_builder' , '=' , '14')
+                    ->where('commissions.bb_fee' , '!=' , '0.0')
+                    ->whereBetween('created_at' , [$fromDate." 00:00:00" , $toDate." 23:59:59"])->get();   
             $totalRows =  $data->count();
-            // dd($totalRows);
             if($totalRows>0){
                 foreach($data as $key => $row){
                     $output .= '<tr>
@@ -69,8 +68,7 @@ class CommissionController extends Controller
                                    <td>'.$row->referral.'</td>
                                    <td>'.$row->level.'</td>
                                    <td>'.$row->risk_premium_paid.'</td>
-                                   <td>'.$row->commission_paid.'</td>
-                                   <td>'.$row->commission_paid_percent.'</td>
+                                   <td>'.$row->bb_fee.'</td>
                                    <td>'.date('d F Y', strtotime($row->created_at)).'</td>
                                 </tr>';
                 }
@@ -79,14 +77,15 @@ class CommissionController extends Controller
                 $output = '<tr class="odd"><td valign="top" colspan="6" class="dataTables_empty">No data available</td></tr>';
             }
 
-            $risk_amt_sum = Commission::where('sponsor' , '=' , $ibm)->whereBetween('created_at' , [$fromDate." 00:00:00" , $toDate." 23:59:59"])->sum('risk_premium_paid');
-            $total_comm= Commission::where('sponsor' , '=' , $ibm)->whereBetween('created_at' , [$fromDate." 00:00:00" , $toDate." 23:59:59"])->sum('commission_paid');
-            $risk_amt_sum =number_format((float)$risk_amt_sum, 2, '.', '');
+            $total_comm= DB::table('commissions')
+                    ->leftjoin('user_products' , 'user_products.user_ibm', '=' ,'commissions.referral')
+                    ->where('user_products.business_builder' , '=' , '14')
+                    ->where('commissions.bb_fee' , '!=' , '0.0')
+                    ->whereBetween('created_at' , [$fromDate." 00:00:00" , $toDate." 23:59:59"])->sum('commissions.bb_fee');
             $total_comm =number_format((float)$total_comm, 2, '.', '');
 
             $data = array(
              'commission_data'  => $output,
-             'risk_amt_sum'     => $risk_amt_sum,
              'total_comm'       => $total_comm  
             );
             return json_encode($data);
@@ -95,7 +94,7 @@ class CommissionController extends Controller
         
     }
 
-    public function downloadCommission(Request $request){
+/*    public function downloadCommission(Request $request){
         $daysInterval='';
         if(!empty($request->fromdate) && empty($request->todate)){
                 $toDate = Carbon::today();
@@ -139,7 +138,7 @@ class CommissionController extends Controller
             $user = User::where('id' , '=' ,$id)->first();
            $pdf = PDF::loadView('download' , compact('data' , 'user' , 'levels','total_comm','daysInterval'));
            return $pdf->download('commission_report.pdf');
-    }
+    }*/
 
     public function downloadView(){
         // if(!empty($request->fromdate) && empty($request->todate)){

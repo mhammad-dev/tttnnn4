@@ -21,46 +21,55 @@ class ProductAssignController extends Controller
         $this->middleware('auth:admin');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    // public function index()
-    // {
-    //     $data= User::all();
-    //     $products=Product::all();
-    //     return view('admin.mymembers' , compact('data' , 'products'));
-    // }
-
     public function store(Request $request){
 
-         $requestData = $request->All();
-         //dd($requestData);
-         $validator = $this->validateProduct($requestData);
-
+        $requestData = $request->All();
+        $validator = $this->validateProduct($requestData);
         if($validator->fails())
         {
-        
-            return response()->json(['error' => 'Required feilds cannot be empty']);
+            return response()->json(['error' => 'Required fields cannot be empty or policy number already exists']);
         }
 
-        $policy_num= Product::where('product_id' ,'!=' ,'NULL')->count();
-        $policy_num= "CNN00000".$policy_num;
-
+        
         $ibm = $request->hiddenibm;
-        $product = $request->product;
-        DB::table('users')
+        if($request->member_intention == 2){
+            DB::table('users')
             ->where('ibm' , '=' , $ibm)
             ->update([
-                'product_id' => $product,
                 'member_intention' => $request->member_intention,
-                'policy_number' => $policy_num,
-                'identification_number'=> $request->identification_number,
-                'provider_policy_number' => $request->provider_policy_num,
-                'premium_amount' => $request->premium_amount,
             ]);
-        return response()->json(['success' => 'Product is Assigned Successfully']);
+        }
+
+        else{
+
+        $exists = DB::table('user_products')
+                    ->where('product_id' , '=' , $request->product_name)
+                    ->where('user_ibm' , '=' , $ibm)
+                    ->exists();
+        if($exists){
+            return response()->json(['error' => 'Product is Assigned Already']);
+        }
+        
+        $response= DB::table('user_products')->insert([
+                'user_ibm'   => $ibm,
+                'product_id' => $request->product_name,
+                'policy_no'  => $request->provider_policy_number,
+                'premium_amount'    => $request->premium_amount,
+                'business_builder' => Auth::user()->id,
+        ]);
+    
+
+        if($response){
+            DB::table('users')
+            ->where('ibm' , '=' , $ibm)
+            ->update([
+                'member_intention' => $request->member_intention,
+                'identification_number'=> $request->identification_number,
+            ]);
+        }
+    }
+
+    return response()->json(['success' => 'Product is Assigned Successfully']);
     }
 
     public function validateProduct(array $data)
@@ -68,12 +77,12 @@ class ProductAssignController extends Controller
         if($data['member_intention']==2){
             $validator = Validator::make($data, [
             'member_intention' => 'required | not_in:0'
-        
             ]);
         }
         else{
             $validator = Validator::make($data, [
-            'product' => 'required | not_in:0',
+            'product_name' => 'required | not_in:0',
+            'provider_policy_number' => 'required | unique:user_products,policy_no',
             'identification_number' => 'required',
             'member_intention' => 'required | not_in:0'
         
@@ -83,6 +92,5 @@ class ProductAssignController extends Controller
 
         return $validator;
     }
-
     
 }

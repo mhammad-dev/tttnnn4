@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User\User;
+use App\Models\Admin\Admin;
 
   
 function active_class($path, $active = 'active') {
@@ -17,6 +18,10 @@ function show_class($path) {
 
 function introduced_by($ibm){
      $name= User::where('ibm' , '=' , $ibm)->first();
-
      return $name->name;
+}
+
+function getBusinessBuilderName($id){
+  $businessBuilder = Admin::where('id' , '=' , $id)->first();
+  return $businessBuilder->name;
 }

@@ -13,8 +13,12 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    @if(Auth::user()->scheme_type == 2)
+                    {{ __('You are logged in as Scheme Group Member!') }}
+                    @else
                     {{ __('You are logged in as User!') }}
+                    @endif
+                    
                 </div>
             </div>
         </div>

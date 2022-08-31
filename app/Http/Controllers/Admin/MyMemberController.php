@@ -20,6 +20,7 @@ class MyMemberController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+        $this->middleware('permission:my-members', ['only' => ['index']]);
     }
 
     /**
@@ -29,20 +30,30 @@ class MyMemberController extends Controller
      */
     public function index()
     {
-        //$data= User::all();
-        $data = DB::table('users')
-                    ->leftjoin('products','users.product_id','=', 'products.product_id')
+        $bbId = Auth::user()->id;
+        $usersProductsDetail = DB::table('products')
+                    ->leftjoin('user_products','products.id','=', 'user_products.product_id')
+                    ->leftjoin('users' , 'user_products.business_builder' , '=' , 'users.id')
+                    ->where('user_products.business_builder', '=' ,$bbId)
                     ->select('*')->get();
-        //dd($data->toArray());
-        $users= User::all();
+        
         $products=Product::all();
+        $users = User::all();
+        $mymembers= DB::table('users')
+                ->where('business_builder_id' ,'=' ,$bbId)
+                ->get();
+
         $transactions = DB::table('users')
-                        ->join('products' , 'users.product_id' , '=' ,'products.product_id')
-                        ->join('transactions' , 'users.id' , '=' , 'transactions.member_id')
+                        ->rightjoin('transactions' , 'users.id' , '=' , 'transactions.member_id')
+                        ->rightjoin('user_products' , 'users.ibm' , '=' , 'user_products.user_ibm')
+                        ->leftjoin('products' , 'user_products.product_id' , '=' , 'products.id')
+                        ->where('user_products.business_builder' ,'=' ,$bbId)
                         ->get();
-        //dd($transactions);
         $commissions = Commission::all();
-        return view('admin.mymembers' , compact('data' , 'products','users' , 'transactions' ,'commissions'));
+        // return view('admin.mymembers' , compact('data' , 'products','users' , 'transactions' ,'commissions'));
+
+
+        return view('admin.mymembers' , compact('usersProductsDetail' ,'mymembers','users', 'transactions' ,'commissions' , 'products'));
     }
 
     

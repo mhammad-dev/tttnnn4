@@ -38,7 +38,8 @@ class RewardController extends Controller
         $level = SubscribedUser::where('parent' , '=' ,$ibm)->max('level');
         $total_comm = Commission::select('level', DB::raw('sum(commission_paid) as commission'))->where('sponsor' , '=' , $ibm)->whereBetween('commissions.created_at' , [$fromDate." 00:00:00" , $toDate." 23:59:59"])->groupBy('level')->get();
         $data = DB::table('users')
-                ->leftjoin('products' , 'users.product_id' , '=' ,'products.product_id')
+                ->leftjoin('user_products' , 'users.ibm' , '=' , 'user_products.user_ibm')
+                ->leftjoin('products' , 'user_products.product_id' , '=' ,'products.id')
                 ->rightjoin('subscribed_users' , 'users.ibm' , '=' , 'subscribed_users.child')
                 ->rightjoin('commissions' , 'users.ibm' , '=' ,'commissions.referral')
                 ->where('subscribed_users.parent','=' ,$ibm)

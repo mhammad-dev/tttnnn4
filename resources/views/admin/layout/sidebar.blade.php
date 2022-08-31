@@ -39,25 +39,73 @@
           </ul>
         </div>
       </li> --}}
+     {{--  @canany('all-subscribed-members')
+      <li class="nav-item {{ active_class(['admin/subscribed_members']) }}">
+        <a href="{{ url('/admin/subscribed_members') }}" class="nav-link">
+          <i class="link-icon" data-feather="message-square"></i>
+          <span class="link-title">All Subscribed Members</span>
+        </a>
+      </li>
+      @endcanany --}}
+      @canany('all-subscribed-members')
+      <li class="nav-item {{ active_class(['admin/subscribed_members/*']) }}">
+        <a class="nav-link" data-toggle="collapse" href="#subscribed_members" role="button" aria-expanded="{{ is_active_route(['admin/subscribed_members*']) }}" aria-controls="subscribed_members">
+          <i class="link-icon" data-feather="message-square"></i>
+          <span class="link-title">Subscribed Members</span>
+          <i class="link-arrow" data-feather="chevron-down"></i>
+        </a>
+        <div class="collapse {{ show_class(['admin/subscribed_members/*']) }}" id="subscribed_members">
+          <ul class="nav sub-menu">
+            <li class="nav-item">
+              <a href="{{ url('admin/subscribed_members/all') }}" class="nav-link {{ active_class(['admin/subscribed_members/all']) }}">All</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('admin/subscribed_members/assigned') }}" class="nav-link {{ active_class(['admin/subscribed_members/assigned']) }}">Assigned</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('admin/subscribed_members/unassigned') }}" class="nav-link {{ active_class(['admin/subscribed_members/unassigned']) }}">Unassigned</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('admin/subscribed_members/groups') }}" class="nav-link {{ active_class(['admin/subscribed_members/groups']) }}">Groups</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      @endcanany
+      @canany('my-members')
       <li class="nav-item {{ active_class(['admin/mymembers']) }}">
         <a href="{{ url('/admin/mymembers') }}" class="nav-link">
           <i class="link-icon" data-feather="message-square"></i>
           <span class="link-title">My Members</span>
         </a>
       </li>
+      @endcanany
+      <li class="nav-item {{ active_class(['admin/mycommissions']) }}">
+        <a href="{{ url('/admin/mycommissions') }}" class="nav-link">
+          <i class="link-icon" data-feather="message-square"></i>
+          <span class="link-title">My Commissions</span>
+        </a>
+      </li>
+      @canany(['add-transactions' , 'import-transactions'])
       <li class="nav-item nav-category">Transactions</li>
+      @endcanany
+      @canany('import-transactions')
       <li class="nav-item {{ active_class(['admin/transactions']) }}">
         <a href="{{ url('/admin/transactions') }}" class="nav-link">
           <i class="link-icon" data-feather="message-square"></i>
           <span class="link-title">Import Trasactions</span>
         </a>
       </li>
+      @endcanany
+      @canany('add-transactions')
       <li class="nav-item {{ active_class(['admin/addTransaction']) }}">
         <a href="{{ url('/admin/addTransaction') }}" class="nav-link">
           <i class="link-icon" data-feather="message-square"></i>
           <span class="link-title">Add Trasactions</span>
         </a>
       </li>
+      @endcanany
+      @canany('reconcile-users')
       <li class="nav-item nav-category">Reconcillation</li>
       <li class="nav-item {{ active_class(['admin/reconcile']) }}">
         <a href="{{ url('/admin/reconcile') }}" class="nav-link">
@@ -65,6 +113,16 @@
           <span class="link-title">Reconcile Users</span>
         </a>
       </li>
+      @endcanany
+      @canany(['product-list', 'product-create', 'product-edit', 'product-delete'])
+      <li class="nav-item nav-category">Products</li>
+      <li class="nav-item {{ active_class(['admin/products']) }}">
+        <a href="{{ url('/admin/products') }}" class="nav-link">
+          <i class="link-icon" data-feather="message-square"></i>
+          <span class="link-title">Products</span>
+        </a>
+      </li>
+      @endcanany
 
       
       @canany(['role-list', 'role-create', 'role-edit', 'role-delete'])

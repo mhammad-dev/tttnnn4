@@ -35,28 +35,50 @@
               @endif
     
             </select>
-          </div>
-
+          </div>   
           @if($row->member_intention == '2')
           <div class="form-group" id="product_name{{$row->ibm}}" style="display:none;">
           @else
-          <div class="form-group" id="product_name{{$row->ibm}}" style="display:block;">
+          <div class="form-group field_wrapper" id="product_name{{$row->ibm}}" style="display:block;">
           @endif
-            <label for="product" class="col-form-label">Product Name:<span class="aesterik">*</span></label>
-            <select name="product" class="form-control" required>
-              @if($row->product_id == NULL)
-               <option value="" disabled selected >Select Product</option>
-              @else
-               <option value="{{$row->product_id}}">{{$row->product_name}}</option>
-              @endif
+          
+            <label for="product_name" class="col-form-label">Product Name:<span class="aesterik">*</span></label>
+            <select name="product_name" class="form-control" required>
+              <option disabled selected>Select Product</option>
               @foreach($products as $product )
-                @if($row->product_id != $product->product_id)
-                 <option value="{{$product->product_id}}">{{$product->product_name}}</option>
-                @endif
+                 <option value="{{$product->id}}">{{$product->product_name}}</option>
               @endforeach
             </select>
+            {{-- @foreach($usersProductsDetail as $userSingleProductDetail)
+            @if($row->ibm == $userSingleProductDetail->user_ibm) --}}
+            {{-- <div class="product_inputs_div"> --}}
+             {{--  <label for="product" class="col-form-label d-block">Product Detail:<span class="aesterik">*</span></label>
+              <select name="product_name" class="form-control col-md-6 d-inline-block" required>
+                @if($row->product_id == NULL)
+                 <option value="" disabled selected >Select Product</option>
+                @else
+                 <option value="{{$row->product_id}}">{{$row->product_name}}</option>
+                @endif
+                @foreach($products as $product )
+                  @if($row->product_id != $product->id)
+                   <option value="{{$product->id}}">{{$product->product_name}}</option>
+                  @endif
+                @endforeach
+              </select> --}}
+         {{--     <input type="text" name="policy_number[]" value="" class="form-control col-md-4 d-inline-block" placeholder="Policy Number" required="" />
+              <a href="javascript:void(0);" class="add_button col-md-2 btn btn-secondary ml-1" id="add_button"  style="padding:8px;" title="Add field">Add</a> --}}
+         {{--    </div> --}}
+           {{--  @endif
+            @endforeach
+            <script>
+              var myOptions = '@foreach($products as $product )<option value="" disabled selected >Select Product</option><option value="{{$product->id}}">{{$product->product_name}}</option>@endforeach';
+            </script> --}}
           </div>
-          
+          <div class="form-group">
+            <label for="provider_policy_number" class="col-form-label">Provider Policy Number:<span class="aesterik">*</span></label>
+            <input name="provider_policy_number" type="text" class="form-control" placeholder="Provider Policy Number" value="{{$row->provider_policy_number}}" />
+          </div>
+
           @if($row->member_intention == '2')
           <div class="form-group" id="identification_number{{$row->ibm}}" style="display:none;">
           @else
@@ -66,14 +88,9 @@
             <input name="identification_number" type="text" class="form-control" placeholder="Identification Number" value="{{$row->identification_number}}" required />
           </div>
           <div class="form-group">
-            <label for="provider_policy_number" class="col-form-label">Provider Policy Number:</label>
-            <input name="provider_policy_number" type="text" class="form-control" placeholder="Provider Policy Number" value="{{$row->provider_policy_number}}" />
-          </div>
-          <div class="form-group">
             <label for="premium_amount" class="col-form-label">Premium Amount:</label>
             <input name="premium_amount" type="text" class="form-control" placeholder="Premium Amount" value="{{$row->premium_amount}}" required />
-          </div>
-          
+          </div>             
         </form>
       </div>
       <div class="modal-footer">

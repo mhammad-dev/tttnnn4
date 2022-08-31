@@ -23,7 +23,8 @@ class TransactionController extends Controller
         //$transactions = Transaction::where('member_id' , '=' , $id)->get();
 
         $transactions = DB::table('users')
-                        ->join('products' , 'users.product_id' , '=' ,'products.product_id')
+                        ->join('user_products' , 'users.ibm' , '=' ,'user_products.user_ibm')
+                        ->join('products' , 'user_products.product_id' , '=' ,'products.id')
                         ->join('transactions' , 'users.id' , '=' , 'transactions.member_id')
                         ->where('users.id' , '=' ,$id)
                         ->get();
@@ -68,20 +69,22 @@ class TransactionController extends Controller
             $id = Auth::user()->id;
 
             $data = DB::table('users')
-                        ->join('products' , 'users.product_id' , '=' ,'products.product_id')
-                        ->join('transactions' , 'users.id' , '=' , 'transactions.member_id')
+                        ->rightjoin('transactions' , 'users.id' , '=' , 'transactions.member_id')
+                        ->rightjoin('user_products' , 'users.ibm' , '=' , 'user_products.user_ibm')
+                        ->leftjoin('products' , 'user_products.product_id' , '=' , 'products.id')
                         ->where('users.id' , '=' ,$id)
                         ->whereBetween('transactions.created_at' , [$fromDate." 00:00:00" , $toDate." 23:59:59"])->get();
+                
             $total_transactions = Transaction::where('member_id' , '=' , $id)->whereBetween('transactions.created_at' , [$fromDate." 00:00:00" , $toDate." 23:59:59"])->sum('risk_amt_ex_vat');
 
             $totalRows =  $data->count();
-            // dd($totalRows);
+            // dd($total_transactions);
             if($totalRows>0){
                 foreach($data as $key => $row){
                     $output .= '<tr>
                                     <td>'.date('d F Y', strtotime($row->created_at)).'</td>
                                     <td>'.substr(str_repeat(0, 7).$row->id, - 7).'</td>
-                                    <td>'.$row->product_name.'</td>
+                                    <td>$row->product_name</td>
                                     <td>'.$row->policy_no.'</td>
                                     <td>'.$row->risk_amt_ex_vat.'</td>
                                     <td>'.$row->status.'</td>  
@@ -95,7 +98,7 @@ class TransactionController extends Controller
             $data = array(
              'transaction_data'  => $output,
              'total_transactions'=> $total_transactions
-            );
+            );  
             return json_encode($data);
 
         }

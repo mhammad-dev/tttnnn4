@@ -74,3 +74,30 @@ div#level3_filter {
     width: 50% !important;
     display: inline-block !important;
 }
+
+.info-box{
+    padding: 15px 5px;
+    border-radius: 20px;
+}
+span.info-box-icon{
+    text-align: center;
+    margin-bottom: 12px;
+    font-size: 20px;
+}
+
+.info-box-icon>svg{
+    width: 40px !important;
+    height: 40px !important;
+}
+span.info-box-heading{
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+span.info-box-num{
+    text-align: center;
+    margin-top: 10px;
+    font-size: 26px;
+    font-weight: 400;
+}

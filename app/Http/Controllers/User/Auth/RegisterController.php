@@ -55,7 +55,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'refer_ibm'  => ['required', 'string', 'max:255' , 'exists:App\Models\User\User,refer_ibm'],
+            'refer_ibm'  => ['required', 'string', 'max:255' , 'exists:App\Models\User\User,ibm'],
             'name' => ['required', 'string', 'max:255'],
             'surname'=>['required' , 'string' , 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],

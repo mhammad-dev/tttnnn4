@@ -11,12 +11,12 @@ class CreateAdminUserSeeder extends Seeder
     {
         $admin = Admin::create([
             'name' => 'CareCover', 
-            'email' => 'admin3@carecover.com',
+            'email' => 'projectlead@carecover.com',
             'password' => bcrypt('123456')
         ]);
     
-        $role = Role::create(['name' => 'admin2']);
-     
+        $role = Role::create(['name' => 'projectlead' , 'guard_name' => 'admin']);
+        
         $permissions = Permission::pluck('id','id')->all();
    
         $role->syncPermissions($permissions);
